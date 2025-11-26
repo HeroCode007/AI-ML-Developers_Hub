@@ -166,6 +166,104 @@ Example visualization code:
 
 ---
 
+# 🩺 TASK-3 Health Assistant – WEB App
+
+A simple, safe, and friendly AI-powered Health Information Assistant built using **Streamlit**, **Hugging Face Router**, and **OpenAI-compatible API**. 
+
+This assistant provides general health information, follows strict safety rules, and features a custom dark chat UI.
+
+## 🚀 Features
+
+- **✅ AI Health Assistant**  
+  - Provides simple, safe, general health guidance.
+  - Uses the `moonshotai/Kimi-K2-Instruct-0905` model via Hugging Face Router.
+  - System prompt enforces strict health safety policies.
+
+- **🔐 Safety Guardrails**  
+  Prevents unsafe responses involving:
+  - Diagnosis
+  - Medication dosage
+  - Emergency instructions
+  - Sensitive or harmful topics
+
+- **🎨 Custom Dark UI**  
+  - Modern chat-style layout.
+  - Distinct message bubble styles (User/Assistant).
+  - Scrollable chat window.
+  - "Clear Chat" button.
+
+- **⚡ Real-Time Chat**  
+  - Powered by `st.chat_input()`.
+  - Smooth message updates with placeholders.
+
+---
+
+## 🧩 Tech Stack
+
+| Component | Description |
+| :--- | :--- |
+| **Streamlit** | UI Framework |
+| **HuggingFace Router** | API Gateway for LLM |
+| **OpenAI Python SDK** | Client for chat completions |
+| **Custom CSS** | Dark theme and chat styling |
+
+---
+
+## 🔧 Installation & Setup
+
+### 1️⃣ Clone the Repository
+
+
+### 2️⃣ Create Virtual Environment (Optional)
+
+### 3️⃣ Install Dependencies
+## 🧠 How It Works
+
+1.  **Query Safety Check** 🔍  
+    Unsafe keywords trigger an automatic safe reply, bypassing the LLM to prevent harmful advice.
+
+2.  **LLM Request** 💬  
+    Safe messages are passed to the model with a system prompt:
+    ```
+    completion = client.chat.completions.create(
+        model="moonshotai/Kimi-K2-Instruct-0905",
+        messages=messages,
+        temperature=0.9,
+        max_tokens=300,
+    )
+    ```
+
+3.  **UI Chat Rendering** 🎨  
+    Custom CSS renders messages as chat bubbles:
+    - 🔵 **Blue:** User
+    - 🔘 **Light Blue:** Assistant
+
+---
+
+## 📌 Future Improvements
+
+- [ ] User authentication
+- [ ] Chat export option
+- [ ] Voice input integration (Whisper)
+- [ ] More advanced health categories
+- [ ] Emoji mood-based UI
+
+---
+
+## 🤝 Contributing
+
+Pull requests are welcome! For major changes, please open an issue first to discuss your ideas.
+
+---
+
+## 📜 License
+
+MIT License © 2025
+
+
+
+
+
 *This README is structured for clarity and ease of understanding for users and collaborators on GitHub.*
 
 
