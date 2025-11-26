@@ -1,73 +1,67 @@
-Task 1: Iris Dataset Exploration
-Objective
+# AI/ML Internship Tasks
 
-The objective of this task is to learn how to load, inspect, and visualize a dataset using Python.
-We explore the basic data structure, summary statistics, and visualizations to understand patterns, distributions, and relationships between variables in the dataset.
+---
 
-Dataset
+# Task 1: Iris Dataset Exploration
 
-Iris Dataset (from UCI Machine Learning Repository) contains 150 samples of iris flowers with the following features:
+## Objective
+The objective of this task is to **learn how to load, inspect, and visualize a dataset** using Python.  
+We explore the basic **data structure**, **summary statistics**, and **visualizations** to understand patterns, distributions, and relationships between variables in the dataset.
 
-sepal_length
+---
 
-sepal_width
+## Dataset
+**Iris Dataset** (from UCI Machine Learning Repository) contains 150 samples of iris flowers with the following features:
 
-petal_length
+- `sepal_length`  
+- `sepal_width`  
+- `petal_length`  
+- `petal_width`  
+- `species` (Setosa, Versicolor, Virginica)
 
-petal_width
+The dataset is loaded using **pandas**.
 
-species (Setosa, Versicolor, Virginica)
+---
 
-The dataset is loaded using pandas.
+## Steps Completed
 
-Steps Completed
-1. Load the dataset
+### 1. Load the dataset
+- Loaded using `pandas.read_csv()`  
+- Assigned column names  
+- Stored it in a DataFrame
 
-Loaded using pandas.read_csv()
+### 2. Inspect the dataset
+- `.head()` → Displayed the first 5 rows  
+- `.shape` → Checked number of rows and columns  
+- `.columns` → List of column names  
+- `.info()` → Data types and null values  
+- `.describe()` → Summary statistics (mean, std, min, max, quartiles)
 
-Assigned column names
+### 3. Visualize the dataset
+- **Scatter Plot** → Relationships between features (`sepal_length` vs `sepal_width`)  
+- **Histograms** → Distribution of each feature  
+- **Box Plots** → Detect outliers or unusual values  
 
-Stored it in a DataFrame
+---
 
-2. Inspect the dataset
+## Libraries Used
+- **pandas** → Data loading and manipulation  
+- **seaborn** → Visualizations with style  
+- **matplotlib** → Basic plotting
 
-.head() → Displayed the first 5 rows
+---
 
-.shape → Checked number of rows and columns
+## Key Findings
+- Species can be separated based on petal length and width.  
+- Sepal length and width vary among species but overlap for some classes.  
+- Some features have slight outliers visible in box plots.  
+- Histograms show distributions are mostly normal with minor skew in some features.
 
-.columns → List of column names
+---
 
-.info() → Data types and null values
+## Code Snippet
 
-.describe() → Summary statistics (mean, std, min, max, quartiles)
-
-3. Visualize the dataset
-
-Scatter Plot → Relationships between features (sepal_length vs sepal_width)
-
-Histograms → Distribution of each feature
-
-Box Plots → Detect outliers or unusual values
-
-Libraries Used
-
-pandas → Data loading and manipulation
-
-seaborn → Visualizations with style
-
-matplotlib → Basic plotting
-
-Key Findings
-
-Species can be separated based on petal length and width.
-
-Sepal length and width vary among species but overlap for some classes.
-
-Some features have slight outliers visible in box plots.
-
-Histograms show distributions are mostly normal with minor skew in some features.
-
-Code Snippet
+```python
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -92,147 +86,86 @@ plt.show()
 
 sns.boxplot(data=iris, orient='h')
 plt.show()
+```
+# TASK-2 House Price Prediction – Regression Model
 
-Task 2: House Price Prediction
-Objective
+A regression-based house price prediction project using size and location features from the housing dataset to predict house `SalePrice` with Linear Regression and Gradient Boosting models.
 
-The goal of this task is to build a regression model that predicts house prices based on features such as:
+## Project Overview
 
-Square footage (GrLivArea)
+This project builds supervised regression models to predict house prices using above-ground living area, number of bedrooms, and location-related attributes. It includes data preprocessing, model training, evaluation with MAE and RMSE metrics, and visualization of actual vs predicted prices.
 
-Number of bedrooms (BedroomAbvGr)
+## Dataset
 
-Number of bathrooms
+- Training file: `train.csv` (with `SalePrice` target variable)
+- Testing file: `test.csv`
+- Features:
+  - Numerical: `GrLivArea` (living area sqft), `BedroomAbvGr` (bedrooms)
+  - Categorical: `Neighborhood`, `MSZoning`
+- Target: `SalePrice`
 
-Location (Neighborhood, MSZoning, encoded numerically)
+## Methodology
 
-The task involves preprocessing the dataset, training regression models, evaluating them using MAE and RMSE, and visualizing actual vs predicted prices.
+1. Load and inspect dataset; handle missing values
+2. Preprocess:
+   - Normalize numerical features using `StandardScaler`
+   - Encode categorical features using `OneHotEncoder` with `handle_unknown="ignore"`
+3. Train-test split (80% train, 20% test) with fixed random seed for reproducibility
+4. Build pipelines:
+   - Linear Regression
+   - Gradient Boosting Regressor
+5. Train models with `.fit()`
+6. Evaluate using Mean Absolute Error (MAE) and Root Mean Squared Error (RMSE)
+7. Visualize actual vs predicted prices for Gradient Boosting model
 
-Dataset
+## Models
 
-The dataset contains housing information with features related to size, structure, and location.
+## Models
 
-Training dataset: train.csv
+- Linear Regression pipeline:
+- Gradient Boosting pipeline:
 
-Testing dataset: test.csv
 
-Key Features Used:
+## Evaluation
 
-GrLivArea → Above ground living area (in square feet)
+Evaluation metric example function:
+Gradient Boosting outperforms Linear Regression with lower MAE and RMSE.
 
-BedroomAbvGr → Number of bedrooms above ground
+## Visualization
 
-Neighborhood → Neighborhood of the house (categorical)
+Example visualization code:
 
-MSZoning → General zoning classification (categorical)
+## Libraries Used
 
-Target Variable:
+- pandas — Data handling
+- numpy — Numerical computations
+- matplotlib — Visualization
+- scikit-learn — Preprocessing, model building, evaluation
 
-SalePrice → Price of the house
+## Key Findings
 
-Steps Completed
-1. Load and Inspect Dataset
+- Location and house size strongly influence price predictions.
+- Gradient Boosting better captures nonlinear relationships than Linear Regression.
+- Proper scaling and encoding of features improve model performance.
 
-Loaded training and testing data using pandas
+## Future Work
 
-Displayed first few rows with .head()
+- Hyperparameter tuning of Gradient Boosting
+- Experiment with XGBoost, Random Forest, or other models
+- Add features like year built, lot area, and house condition
+- Deploy the model with a web interface for live predictions
 
-Selected relevant features and dropped rows with missing values
+---
 
-2. Preprocessing
+## How to Run
 
-Numerical Features → StandardScaler to normalize values
+1. Clone the repository.  
+2. Install dependencies via `pip install -r requirements.txt`.  
+3. Place `train.csv` and `test.csv` in the project directory.  
+4. Run the main notebook or script to train and evaluate models.  
 
-Categorical Features → OneHotEncoder for encoding
+---
 
-num_features = ["GrLivArea", "BedroomAbvGr"]
-cat_features = ["Neighborhood", "MSZoning"]
+*This README is structured for clarity and ease of understanding for users and collaborators on GitHub.*
 
-preprocessor = ColumnTransformer(
-    transformers=[
-        ("num", StandardScaler(), num_features),
-        ("cat", OneHotEncoder(handle_unknown="ignore"), cat_features),
-    ]
-)
 
-3. Train-Test Split
-
-Split the data into training and test sets: 80% training, 20% testing
-
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
-)
-
-4. Model Building
-
-Built Machine Learning Pipelines with preprocessing included:
-
-Linear Regression
-
-model_lr = Pipeline(steps=[("preprocess", preprocessor), ("model", LinearRegression())])
-
-
-Gradient Boosting Regressor
-
-model_gb = Pipeline(steps=[("preprocess", preprocessor), ("model", GradientBoostingRegressor(random_state=42))])
-
-5. Model Training
-
-Trained both models using .fit()
-
-model_lr.fit(X_train, y_train)
-model_gb.fit(X_train, y_train)
-
-6. Prediction and Evaluation
-
-Predicted house prices on the test set
-
-Evaluated models using Mean Absolute Error (MAE) and Root Mean Squared Error (RMSE)
-
-def evaluate(pred, name):
-    mae = mean_absolute_error(y_test, pred)
-    rmse = np.sqrt(mean_squared_error(y_test, pred))
-    print(f"{name}: MAE={mae:.2f}, RMSE={rmse:.2f}")
-
-
-Key Results:
-
-Gradient Boosting performed better than Linear Regression in capturing non-linear relationships
-
-7. Visualization
-
-Plotted Actual vs Predicted Prices for Gradient Boosting
-
-plt.scatter(y_test, pred_gb)
-plt.xlabel("Actual Prices")
-plt.ylabel("Predicted Prices")
-plt.title("Actual vs Predicted House Prices (Gradient Boosting)")
-plt.show()
-
-Libraries Used
-
-pandas → Data handling
-
-numpy → Numerical computations
-
-matplotlib → Visualization
-
-scikit-learn → Machine learning, preprocessing, metrics
-
-Key Findings
-
-Location and size significantly impact house price prediction
-
-Gradient Boosting captures non-linearities better than Linear Regression
-
-Preprocessing (scaling and encoding) improves model performance
-
-Future Work
-
-Hyperparameter tuning of Gradient Boosting for better accuracy
-
-Try other regression models like XGBoost or Random Forest
-
-Include additional features like year built, lot area, and condition
-
-Deploy model with a web interface for live predictions
