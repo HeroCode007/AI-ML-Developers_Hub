@@ -80,3 +80,155 @@ iris.hist(figsize=(10, 8))
 plt.show()
 sns.boxplot(data=iris, orient='h')
 plt.show()
+
+
+
+
+Here’s a **detailed README.md** tailored for your **House Price Prediction – Regression Task**. You can add this to your GitHub repo under a folder like `Task2_HousePricePrediction`.
+
+---
+
+````markdown
+# Task 2: House Price Prediction
+
+## Objective
+The goal of this task is to **build a regression model that predicts house prices** based on features such as:
+
+- Square footage (`GrLivArea`)  
+- Number of bedrooms (`BedroomAbvGr`)  
+- Number of bathrooms  
+- Location (`Neighborhood`, `MSZoning`, encoded numerically)
+
+The task involves **preprocessing the dataset**, training regression models, evaluating them using **MAE** and **RMSE**, and visualizing actual vs predicted prices.
+
+---
+
+## Dataset
+The dataset contains housing information with features related to **size, structure, and location**.  
+
+- **Training dataset**: `train.csv`  
+- **Testing dataset**: `test.csv`  
+
+**Key Features Used**:  
+- `GrLivArea` → Above ground living area (in square feet)  
+- `BedroomAbvGr` → Number of bedrooms above ground  
+- `Neighborhood` → Neighborhood of the house (categorical)  
+- `MSZoning` → General zoning classification (categorical)  
+
+**Target Variable**:  
+- `SalePrice` → Price of the house
+
+---
+
+## Steps Completed
+
+### 1. Load and Inspect Dataset
+- Loaded training and testing data using **pandas**  
+- Displayed first few rows with `.head()`  
+- Selected relevant features and dropped rows with missing values
+
+### 2. Preprocessing
+- **Numerical Features** → StandardScaler to normalize values  
+- **Categorical Features** → OneHotEncoder for encoding
+
+```python
+num_features = ["GrLivArea", "BedroomAbvGr"]
+cat_features = ["Neighborhood", "MSZoning"]
+
+preprocessor = ColumnTransformer(
+    transformers=[
+        ("num", StandardScaler(), num_features),
+        ("cat", OneHotEncoder(handle_unknown="ignore"), cat_features),
+    ]
+)
+````
+
+### 3. Train-Test Split
+
+* Split the data into training and test sets: 80% training, 20% testing
+
+```python
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+```
+
+### 4. Model Building
+
+* Built **Machine Learning Pipelines** with preprocessing included:
+
+1. **Linear Regression**
+
+```python
+model_lr = Pipeline(steps=[("preprocess", preprocessor), ("model", LinearRegression())])
+```
+
+2. **Gradient Boosting Regressor**
+
+```python
+model_gb = Pipeline(steps=[("preprocess", preprocessor), ("model", GradientBoostingRegressor(random_state=42))])
+```
+
+### 5. Model Training
+
+* Trained both models using `.fit()`
+
+```python
+model_lr.fit(X_train, y_train)
+model_gb.fit(X_train, y_train)
+```
+
+### 6. Prediction and Evaluation
+
+* Predicted house prices on test set
+* Evaluated models using **Mean Absolute Error (MAE)** and **Root Mean Squared Error (RMSE)**
+
+```python
+def evaluate(pred, name):
+    mae = mean_absolute_error(y_test, pred)
+    rmse = np.sqrt(mean_squared_error(y_test, pred))
+    print(f"{name}: MAE={mae:.2f}, RMSE={rmse:.2f}")
+```
+
+* **Key Results**:
+
+  * Gradient Boosting performed better than Linear Regression in capturing non-linear relationships
+
+### 7. Visualization
+
+* Plotted **Actual vs Predicted Prices** for Gradient Boosting
+
+```python
+plt.scatter(y_test, pred_gb)
+plt.xlabel("Actual Prices")
+plt.ylabel("Predicted Prices")
+plt.title("Actual vs Predicted House Prices (Gradient Boosting)")
+plt.show()
+```
+
+---
+
+## Libraries Used
+
+* **pandas** → Data handling
+* **numpy** → Numerical computations
+* **matplotlib** → Visualization
+* **scikit-learn** → Machine learning, preprocessing, metrics
+
+---
+
+## Key Findings
+
+* Location and size significantly impact house price prediction
+* Gradient Boosting captures non-linearities better than Linear Regression
+* Preprocessing (scaling and encoding) improves model performance
+
+---
+
+## Future Work
+
+* Hyperparameter tuning of Gradient Boosting for better accuracy
+* Try other regression models like XGBoost or Random Forest
+* Include additional features like year built, lot area, and condition
+* Deploy model with a web interface for live predictions
+
